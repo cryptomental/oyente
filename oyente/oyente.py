@@ -151,6 +151,7 @@ def main():
     parser.add_argument( "-ce",  "--compilation-error",      help="Display compilation errors", action="store_true")
     parser.add_argument( "-gtc", "--generate-test-cases",    help="Generate test cases each branch of symbolic execution tree", action="store_true")
     parser.add_argument( "-sjo", "--standard-json-output",   help="Support Standard JSON output", action="store_true")
+    parser.add_argument("-iv",  "--ignore-vulnerabilities",  help="Return exit code 0 even if specified vulnerabilities found. Supported list of vulnerabilities : [AssertionFailure, CallStack, MoneyConcurrency, TimeDependency, Reentrancy, ParityMultisigBug2]", nargs="+")
 
     args = parser.parse_args()
 
@@ -180,6 +181,7 @@ def main():
     global_params.DEBUG_MODE = 1 if args.debug else 0
     global_params.GENERATE_TEST_CASES = 1 if args.generate_test_cases else 0
     global_params.PARALLEL = 1 if args.parallel else 0
+    global_params.IGNORE_VULNERABILITIES = args.ignore_vulnerabilities if args.ignore_vulnerabilities else []
 
     if args.depth_limit:
         global_params.DEPTH_LIMIT = args.depth_limit

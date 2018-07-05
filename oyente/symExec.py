@@ -2349,6 +2349,10 @@ def vulnerability_found():
         vulnerabilities.append(assertion_failure)
         vulnerabilities.append(parity_multisig_bug_2)
 
+    if global_params.IGNORE_VULNERABILITIES:
+        for vul in global_params.IGNORE_VULNERABILITIES:
+            vulnerabilities = [v for v in vulnerabilities if v.__class__.__name__ != vul]
+
     for vul in vulnerabilities:
         if vul.is_vulnerable():
             return 1
